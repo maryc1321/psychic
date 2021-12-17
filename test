@@ -1,0 +1,36 @@
+function guess() {
+  $("#age").html('<i class="fas fa-circle-notch fa-spin"></i>');
+
+  $.ajax({
+    url: "./guess",
+    data: {
+      day: $("#day_in").val(),
+      parent: $("#parent_in").val(),
+      alaska: $("#alaska_in").val(),
+      letters: $("#letters_in").val(),
+      last: $("#last_in").val(),
+      ssn: $("#ssn_in").val()
+    },
+    type: "get",
+  }).done(function(data, status) {
+    setTimeout(function(){
+      $("#age").html(data);
+    }, 1000);
+  }).fail(function(){
+      $("#age").html("error. Make sure your input is valid.");
+  });
+}
+
+var color = 0;
+var font = 80;
+var dir = 0.1;
+
+setInterval(
+  function() {
+    color = (color + 1) % 360;
+    $("#hat").css("color", "hsl(" + color + ", 100%, 50%)");
+    if (font >= 85 || font <= 75) dir *= -1;
+    font += dir;
+    $("#hat").css("font-size", font);
+  }, 10
+);
